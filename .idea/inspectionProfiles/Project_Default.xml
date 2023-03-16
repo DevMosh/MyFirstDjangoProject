@@ -1,0 +1,13 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyFromFutureImportInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <scope name="All Changed Files" level="WARNING" enabled="true" />
+      <scope name="Default Changelist" level="WARNING" enabled="true" />
+      <scope name="Open Files" level="WARNING" enabled="true" />
+      <scope name="Project Files" level="WARNING" enabled="true" />
+      <scope name="Scratches and Consoles" level="WARNING" enabled="true" />
+    </inspection_tool>
+    <inspection_tool class="PyShadowingNamesInspection" enabled="true" level="ERROR" enabled_by_default="true" />
+  </profile>
+</component>
