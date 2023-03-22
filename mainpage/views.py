@@ -7,10 +7,12 @@ from django.shortcuts import render
 
 
 def home(request):
-    a = int(input("Сколько цифр мне нужно вывести?\n"
-                  ""))
-    numbers = ''
-    for i in range(1, a + 1):
-        numbers += f"{i} "
+    name = 'bob'
 
-    return render(request, 'mainpage/index.html', context={'numbers': numbers})
+    return render(request, 'mainpage/index.html', context={'numbers': name})
+
+
+def about(request):
+    name = 'about us'
+
+    return render(request, 'mainpage/about.html', context={'numbers': name})
