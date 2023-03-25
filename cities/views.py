@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView
 
+from cities.forms import HtmlForm, CityForm
 from cities.models import City
 
 __all__ = [
@@ -14,7 +15,10 @@ def home(request, pk=None):
     больше информации о городе )"""
 
     if request.method == 'POST':
-        print(request.POST)
+        form = CityForm(request.POST)
+        if form.is_valid():  # это условие будет проверять все ли введеные поля соответсвуют заявленным в нашей форме, которая находится в файле forms.py
+            print(form.cleaned_data)
+            form.save()
 
     # if pk:
         # city = City.objects.filter(id=pk).first()  # чтобы ничего не вышло
@@ -27,8 +31,9 @@ def home(request, pk=None):
         #     context = {'object': "Такого города нет в базе данных."}
         # return render(request, 'cities/detail.html', context)
 
+    form = HtmlForm()
     qs = City.objects.all()
-    context = {'objects_list': qs}
+    context = {'objects_list': qs, 'form': form}
     return render(request, 'cities/home.html', context)
 
 
