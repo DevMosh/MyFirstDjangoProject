@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from mainpage.views import about, home
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('cities/', include(('cities.urls', 'cities'))),
+    path('', home, name='home'),
     path("", include(('mainpage.urls', 'default'), namespace='default')),
+    path('about/', about),
 ]

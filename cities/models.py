@@ -2,7 +2,7 @@ from django.db import models
 
 
 class City(models.Model):  # класс для создания таблице в базе данных
-    name = models.CharField(max_length=100, unique=True, verbose_name = 'Город')  # добавляем ячейку name в таблицу
+    name = models.CharField(max_length=100, unique=True, verbose_name='Город')  # добавляем ячейку name в таблицу
 
     def __str__(self):  # для нормального отображения данных в админке
         return self.name
