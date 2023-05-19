@@ -23,5 +23,5 @@ urlpatterns = [
     path('cities/', include(('cities.urls', 'cities'))),
     path('', home, name='home'),
     path("", include(('mainpage.urls', 'default'), namespace='default')),
-    path('about/', about),
+    path('about/', about)
 ]

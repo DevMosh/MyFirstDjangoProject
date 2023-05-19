@@ -1,11 +1,15 @@
+from django.core.paginator import Paginator
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, ListView
 
-from cities.forms import HtmlForm, CityForm
+from cities.forms import CityForm
 from cities.models import City
 
 __all__ = [
-    'home', 'CityDetailView'
+    'home', 'CityDetailView', 'CityCreateView', 'CityUpdateView', 'CityDeleteView',
+    'CityListView',
 ]
 
 
@@ -31,14 +35,55 @@ def home(request, pk=None):
         #     context = {'object': "Такого города нет в базе данных."}
         # return render(request, 'cities/detail.html', context)
 
-    form = HtmlForm()
+    form = CityForm()
     qs = City.objects.all()
-    context = {'objects_list': qs, 'form': form}
+    lst = Paginator(qs, 2)
+    page_number = request.GET.get("page")
+    page_obj = lst.get_page(page_number)
+    context = {'page_obj': page_obj, 'form': form}
     return render(request, 'cities/home.html', context)
 
 
 class CityDetailView(DetailView):
     queryset = City.objects.all()
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+
+        context['hello'] = 'hello world'
+        return context
+
     template_name = 'cities/detail.html'
 
+
+class CityCreateView(CreateView):
+    model = City
+    form_class = CityForm
+    template_name = 'cities/create.html'
+    success_url = reverse_lazy('cities:home')
+
+
+class CityUpdateView(UpdateView):
+    model = City
+    form_class = CityForm
+    template_name = 'cities/update.html'
+    success_url = reverse_lazy('cities:home')
+
+
+class CityDeleteView(DeleteView):
+    model = City
+    # template_name = 'cities/delete.html'  # это типо способ с подтверждением удаления
+    success_url = reverse_lazy('cities:home')
+
+    # способ без подтверждения удаления:
+    def get(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
+
+
+class CityListView(ListView):
+    paginate_by = 2
+    model = City
+    template_name = 'cities/home.html'
 

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class City(models.Model):  # класс для создания таблице в базе данных
@@ -12,3 +13,5 @@ class City(models.Model):  # класс для создания таблице �
         verbose_name_plural = "Города"  # изменяем название таблицы в админке (мн. ч.)
         ordering = ['name']  # порядок сортировки, чтобы новые элементы шли вниз
 
+    def get_absolute_url(self):
+        return reverse('cities:detail', kwargs={'pk': self.pk})
